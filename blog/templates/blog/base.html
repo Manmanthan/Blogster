@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css"
+          type="text/css" media="screen" charset="utf-8">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+
+    <!--Custom CSS -->
+    <link rel="stylesheet" href="{% static 'CSS/blog.css' %}">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body class="loader">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{% url 'post_list' %}">MyBlogSpot</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="{% url 'about' %}">About</a>
+            <a class="nav-item nav-link" href="https://github.com/Manmanthan">Github</a>
+            <a class="nav-item nav-link" href="https://www.linkedin.com/in/manthanbhardwaj-76b741157/">LinkedIn</a>
+        </div>
+    </div>
+    {% if user.is_authenticated %}
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="{% url 'post_new' %}">New Post</a>
+                <a class="nav-item nav-link" href="{% url 'post_draft_list' %}">Drafts</a>
+                <a class="nav-item nav-link" href="{% url 'logout' %}"><span class="material-icons">login</span></a>
+                <a class="nav-item nav-link">Welcome: {{ user.username }}</a>
+            </div>
+        </div>
+    {% else %}
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="{% url 'login' %}"><span class="material-icons">account_circle</span></a>
+            </div>
+        </div>
+    {% endif %}
+</nav>
+
+
+<div class="content container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="blog_posts">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
